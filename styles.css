@@ -1,0 +1,18 @@
+h2 {
+    text-align: center;
+}
+
+h3 {
+    text-align: center;
+}
+
+.symptom-item {
+    width: 100%;
+    padding: 7px 10px;
+    margin-bottom: 5px;
+}
+
+.search-input {
+    width: 98%;
+    font-size: 24px;
+}
