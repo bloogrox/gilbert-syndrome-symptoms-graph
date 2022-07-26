@@ -99,7 +99,7 @@ const Index = {
             .sort(compare_insensitive)
         );
 
-        const ids = [1, 11, 14, 15, 16, 19, 23, 27, 32];
+        const ids = [23, 19, 11, 14, 35, 15, 1, 32];
         this.typical_symptoms = datascript.pull_many(db, '["*"]', ids);
     }
 }
