@@ -143,6 +143,7 @@ const routes = [
 const router = VueRouter.createRouter({
     history: VueRouter.createWebHistory(),
     routes,
+    base: "/gilberts-syndrome-symptoms-graph/",
 });
 
 const app = Vue.createApp({
