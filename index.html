@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="/styles.css" />
+        <link rel="stylesheet" href="styles.css" />
     </head>
     <body>
         <main id="app">
@@ -11,7 +11,7 @@
         <script src="https://unpkg.com/vue@3.2.37/dist/vue.global.js"></script>
         <script src="https://unpkg.com/vue-router@4.0.15/dist/vue-router.global.js"></script>
         <script src="https://cdn.jsdelivr.net/gh/nextapps-de/flexsearch@0.7.2/dist/flexsearch.bundle.js"></script>
-        <script src="/data.js"></script>
+        <script src="data.js"></script>
         <script>
             const schema = {
                 "text": {":db/type": ":db.type/string"},
@@ -36,6 +36,6 @@
             `;
             datascript.q(query, db).map(([id_, text_]) => {searchIndex.add(id_, text_)});
         </script>
-        <script src="/app.js"></script>
+        <script src="app.js"></script>
     </body>
 </html>
