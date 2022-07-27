@@ -2,20 +2,80 @@ const Node = {
     data() {
         return {
             causedBy: [],
-            mayCause: []
+            mayCause: [],
+            tab: 0,
         }
     },
     template: `
-        <router-link to="/">Главная</router-link>
-        <h2>{{ $route.params.text }}</h2>
-        <h3 v-if="causedBy.length">возможные причины</h3>
-        <div v-for="el in causedBy">
-            <router-link :to="{name: 'node', params: {text: el}}"><button class="symptom-item">{{ el }}</button></router-link>
-        </div>
-        <h3 v-if="mayCause.length">"{{ $route.params.text }}" может приводить к</h3>
-        <div v-for="el in mayCause">
-            <router-link :to="{name: 'node', params: {text: el}}"><button class="symptom-item">{{ el }}</button></router-link>
-        </div>
+        <v-card
+            class="mx-auto"
+            max-width="600">
+
+            <v-app-bar
+            color=""
+            dense
+            >
+
+                <v-app-bar-title>{{ $route.params.text }}</v-app-bar-title>
+
+                <v-spacer></v-spacer>
+
+                <!--v-btn icon>
+                    <v-icon>mdi-magnify</v-icon>
+                </v-btn-->
+
+                <template v-slot:extension>
+                    <v-tabs align-with-title v-model="tab">
+                        <v-tabs-slider></v-tabs-slider>
+                        <v-tab :key="0">Возможные причины</v-tab>
+                        <v-tab :key="1">Последствия</v-tab>
+                    </v-tabs>
+                </template>
+
+            </v-app-bar>
+
+            <v-card max-width="600" class="mx-auto" tile>
+
+                <v-tabs-items v-model="tab">
+                    <v-tab-item :key="0">
+                        <v-card>
+                            <v-list>
+                                <!--v-subheader>Возможные причины</v-subheader-->
+                                <v-list-item
+                                    v-for="(el, i) in causedBy"                                    :key="i"
+                                    :to="{name: 'node', params: {text: el}}"
+                                >
+                                    <v-list-item-content>
+                                        <v-list-item-title v-text="el"></v-list-item-title>
+                                    </v-list-item-content>
+                                </v-list-item>
+                            <v-list>
+                        </v-card>
+                    </v-tab-item>
+
+                    <v-tab-item :key="1">
+                        <v-card>
+                            <v-list>
+                                <!--v-subheader>Последствия</v-subheader-->
+                                <v-list-item
+                                    v-for="(el, i) in mayCause"
+                                    :key="i"
+                                    :to="{name: 'node', params: {text: el}}"
+                                >
+
+                                    <v-list-item-content>
+                                        <v-list-item-title v-text="el"></v-list-item-title>
+                                    </v-list-item-content>
+
+                                </v-list-item>
+                            <v-list>
+                        </v-card>
+                    </v-tab-item>
+                </v-tabs-items>
+
+            </v-card>
+        </v-card>
+
     `,
     created() {
         this.fetchData();
@@ -69,19 +129,84 @@ const Index = {
     data() {
         return {
             typical_symptoms: [],
-            all_elements: []
+            all_elements: [],
+            tab: 0,
         }
     },
     template: `
-        <router-link :to="{name: 'search'}">Найти</router-link>
-        <h3>Типичные симптомы</h3>
-        <div v-for="doc in typical_symptoms">
-            <router-link :to="{name: 'node', params: {text: doc.text}}"><button class="symptom-item">{{ doc.text }}</button></router-link>
-        </div>
-        <h3>Все симптомы (а-я)</h3>
-        <div v-for="el in all_elements">
-            <router-link :to="{name: 'node', params: {text: el}}"><button class="symptom-item">{{ el }}</button></router-link>
-        </div>
+        <v-card class="mx-auto"
+        max-width="600">
+            <v-app-bar
+                color=""
+                dense
+                >
+
+                <v-app-bar-title>Симптомы</v-app-bar-title>
+
+                <v-spacer></v-spacer>
+
+                <!--v-btn icon>
+                    <v-icon>mdi-magnify</v-icon>
+                </v-btn-->
+
+                <template v-slot:extension>
+                    <v-tabs align-with-title v-model="tab">
+                        <v-tabs-slider></v-tabs-slider>
+                        <v-tab :key="0">Типичные</v-tab>
+                        <v-tab :key="1">Все (а-я)</v-tab>
+                    </v-tabs>
+                </template>
+
+            </v-app-bar>
+
+
+            <v-card
+                class="mx-auto"
+                max-width="600"
+                tile
+            >
+
+                <v-tabs-items v-model="tab">
+                    <v-tab-item :key="0">
+                        <v-card>
+                            <v-list>
+                                <!--v-subheader>Типичные симптомы</v-subheader-->
+                                <v-list-item
+                                    v-for="(doc, i) in typical_symptoms"
+                                    :key="i"
+                                    :to="{name: 'node', params: {text: doc.text}}"
+                                >
+
+                                    <v-list-item-content>
+                                        <v-list-item-title v-text="doc.text"></v-list-item-title>
+                                    </v-list-item-content>
+
+                                </v-list-item>
+                            <v-list>
+                        </v-card>
+                    </v-tab-item>
+
+                    <v-tab-item :key="1">
+                        <v-card>
+                            <v-list>
+                                <!--v-subheader>Все симптомы (а-я)</v-subheader-->
+                                <v-list-item
+                                    v-for="(el, i) in all_elements"
+                                    :key="i"
+                                    :to="{name: 'node', params: {text: el}}"
+                                >
+                                    <v-list-item-content>
+                                        <v-list-item-title v-text="el"></v-list-item-title>
+                                    </v-list-item-content>
+                                </v-list-item>
+                            <v-list>
+                        </v-card>
+                    </v-tab-item>
+                </v-tabs-items>
+
+            </v-card>
+
+        </v-card>
     `,
     created() {
         const query = `
@@ -112,11 +237,13 @@ const Search = {
         }
     },
     template: `
-        <input v-model="q" v-on:input="search" class="search-input" placeholder="начните вводить текст" />
-        <!--h3 v-if="found.length">Найдено {{ found.length }}</h3-->
-        <div style="margin-top: 15px;">
-            <div v-for="el in found">
-                <router-link :to="{name: 'node', params: {text: el}}"><button class="symptom-item">{{ el }}</button></router-link>
+        <div>
+            <input v-model="q" v-on:input="search" class="search-input" placeholder="начните вводить текст" />
+            <!--h3 v-if="found.length">Найдено {{ found.length }}</h3-->
+            <div style="margin-top: 15px;">
+                <div v-for="el in found">
+                    <router-link :to="{name: 'node', params: {text: el}}"><button class="symptom-item">{{ el }}</button></router-link>
+                </div>
             </div>
         </div>
     `,
@@ -140,13 +267,16 @@ const routes = [
     { name: 'search', path: '/search', component: Search },
 ];
 
-const router = VueRouter.createRouter({
-    history: VueRouter.createWebHistory(),
+const router = new VueRouter({
+    // history: VueRouter.createWebHistory(),
     routes,
     base: "/gilberts-syndrome-symptoms-graph/",
 });
 
-const app = Vue.createApp({
+const app = new Vue({
+    el: "#app",
+    router,
+    vuetify: new Vuetify(),
     data() {
         return {
         //     elements: []
@@ -167,8 +297,8 @@ const app = Vue.createApp({
         //     ]`;
         // this.elements = datascript.q(query, db, "метеоризм").map(arr => arr[0]);
     }
-});
+}).$mount("#app");
 
-app.use(router);
+// app.use(router);
 
-app.mount("#app");
+// app.mount("#app");
