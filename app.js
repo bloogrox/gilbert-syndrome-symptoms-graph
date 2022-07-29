@@ -270,7 +270,7 @@ const routes = [
 const router = new VueRouter({
     // history: VueRouter.createWebHistory(),
     routes,
-    base: "/gilberts-syndrome-symptoms-graph/",
+    base: "/gilbert-syndrome-symptoms-graph/",
 });
 
 const app = new Vue({
